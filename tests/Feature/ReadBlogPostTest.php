@@ -20,4 +20,31 @@ class ReadBlogPostTest extends TestCase
 
         $response->assertSee($post->title);
     }
+
+    /** @test */
+    public function a_user_can_see_a_single_post()
+    {
+        $this->withoutExceptionHandling();
+        $post = create('App\Post');
+
+        $this->get('/post/' . $post->id)
+            ->assertSee($post->title)
+            ->assertSee($post->body);
+    }
+
+    /** @test */
+    public function a_user_can_create_a_blog_post()
+    {
+        $this->withoutExceptionHandling();
+        $post = make('App\Post');
+
+        $response = $this->post('/post', $post->toArray());
+        $url = $response->headers->get('location');
+
+        $this->get($url)
+            ->assertSee($post->title)
+            ->assertSee($post->body);
+    }
+
+    
 }
