@@ -46,5 +46,16 @@ class ReadBlogPostTest extends TestCase
             ->assertSee($post->body);
     }
 
+    /** @test */
+    public function a_post_should_be_parsed_as_html_from_markdown()
+    {
+        $post = create('App\Post', ['body' => '# heading']);
+
+        $this->get($post->path())
+            ->assertJson([
+                'body' => '<h1>heading</h1>'
+            ]);
+    }
+    
     
 }
