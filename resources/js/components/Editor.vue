@@ -21,7 +21,6 @@
 
 <script>
 import marked from 'marked';
-import simpleMde from 'simplemde';
 import LiveView from './LiveView.vue';
 import Toolbar from './Toolbar.vue';
 import autosize from 'autosize';
