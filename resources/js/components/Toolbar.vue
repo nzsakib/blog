@@ -1,7 +1,12 @@
 <template>
     <div>
-        <button class="btn btn-info" @click.prevent="bold">Bold</button>
-        <button class="btn btn-info" @click.prevent="italic">italic</button>
+        <button class="btn btn-outline-secondary btn-sm" @click.prevent="bold">Bold</button>
+        <button class="btn btn-outline-secondary btn-sm" @click.prevent="italic">italic</button>
+        <button class="btn btn-outline-secondary btn-sm" @click.prevent="italic">Image</button>
+        <button class="btn btn-outline-secondary btn-sm" @click.prevent="italic">Link</button>
+        <button class="btn btn-outline-secondary btn-sm" @click.prevent="italic">Quote</button>
+        <button class="btn btn-outline-secondary btn-sm" @click.prevent="showPreview">Preview</button>
+        <button class="btn btn-outline-secondary btn-sm" @click.prevent="showSplit">Split Screen</button>
     </div>
 </template>
 
@@ -64,6 +69,12 @@ export default {
             this.beforeText = this.value.substring(0, this.startPos);
             this.afterText = this.value.substring(this.endPos, this.value.length);
             this.selectedText = this.value.substring(this.startPos, this.endPos);
+        },
+        showPreview() {
+            window.event.$emit('preview');
+        },
+        showSplit() {
+            window.event.$emit('split');
         }
     },
     mounted() {

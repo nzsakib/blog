@@ -2,8 +2,7 @@
     <div>
         <div :class="{ splitEditor: splitScreen }">
             <toolbar :data="body"></toolbar>
-            <button class="btn btn-info" @click.prevent="showEditor = !showEditor">Live View</button>
-            <button class="btn btn-info" @click.prevent="splitScreen = !splitScreen">splitScreen View</button>
+            <br>
             <textarea name="body" 
                         id="body" 
                         cols="30" 
@@ -25,6 +24,7 @@ import marked from 'marked';
 import simpleMde from 'simplemde';
 import LiveView from './LiveView.vue';
 import Toolbar from './Toolbar.vue';
+import autosize from 'autosize';
 
 export default {
     components: {
@@ -62,12 +62,21 @@ export default {
                 this.textarea.selectionStart = this.textarea.selectionEnd = cursor;
             }, 10);
             this.textarea.focus();
+        },
+        toggleEditor() {
+            this.showEditor = ! this.showEditor;
+        },
+        toggleSplit() {
+            this.splitScreen = ! this.splitScreen;
         }
     },
     mounted() {
         this.textarea = this.$refs.editor;
+        autosize(this.textarea);
         window.event.$on('bold', this.bold);
         window.event.$on('italic', this.italic);
+        window.event.$on('preview', this.toggleEditor);
+        window.event.$on('split', this.toggleSplit);
     }
 }
 </script>
